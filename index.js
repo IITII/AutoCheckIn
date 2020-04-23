@@ -1,5 +1,3 @@
-//TODO 每日签到
-
 // 参数取名规则是拼音首字母
 const postValue = {
     "name": "你的名字",
@@ -15,8 +13,8 @@ const postValue = {
     "sf": "0",
     "stype": "0",
     "xy": "学院",
-    "nj": "2017",
-    "bj": "172041",
+    "nj": "年紀",
+    "bj": "班級",
     "age": "",
     "lxdh": "",
     "jjdh": "",
@@ -44,7 +42,7 @@ $.ajax({
         } else {
             console.log(data.msg);
         }
-        document.getElementsByClassName("foot")[0].setAttribute('msg1',JSON.stringify(data))
+        document.getElementsByClassName("foot")[0].setAttribute('msg1', JSON.stringify(data))
     },
     error: function (e) {
     }
