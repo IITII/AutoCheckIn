@@ -1,6 +1,8 @@
 .vs
 .vscode
 .idea
+tmp
+/config.json
 # Logs
 logs
 *.log
