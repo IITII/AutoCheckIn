@@ -37,6 +37,12 @@ def get_driver():
     op.add_argument("--disable-dev-shm-usage")
     op.add_argument("--disable-gpu")
 
+    # Modify User agent
+    # op.add_argument(
+    #     "user-agent='"
+    #     "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) "
+    #     "Chrome/84.0.4147.125 Mobile Safari/537.36'")
+
     driver = webdriver.Chrome(executable_path=get_exec_path(), options=op)
     return driver
 
@@ -55,12 +61,17 @@ def task(driver, single):
                + "&loginType=" + str(single.__getitem__('loginType')))
     time.sleep(1)
     log(single, '自动签到中...')
-    js = 'async function(){let t=\'REPLACE\';return t=JSON.parse(t),await async function(t){return await new Promise(n=>{$.ajax({url:"https://fxgl.jx.edu.cn/4136010406/studentQd/saveStu",method:"post",data:t,success:function(t){return n(JSON.stringify(t))}})})}(t)}();'
+    js = 'async function(){let t=\'REPLACE\';return t=JSON.parse(t),await async function(t){return await new Promise(' \
+         'n=>{$.ajax({url:"https://fxgl.jx.edu.cn/4136010406/studentQd/saveStu",method:"post",data:t,' \
+         'success:function(t){return n(JSON.stringify(t))}})})}(t)}(); '
     js = js.replace("REPLACE", json.dumps(single.__getitem__('checkIn')))
     print(driver.execute_script('return ' + js))
     time.sleep(3)
     log(single, '自动填写问卷中...')
-    js = 'async function(){var t=\'REPLACE\',n="https://fxgl.jx.edu.cn/4136010406/";return 0==(t=JSON.parse(t)).sf?n+="dcwjEditNew/dcwjSubmit2":n+="dcwjEditNew/dcwjTsubmit2",await async function(t,n){return await new Promise(i=>{$.ajax({type:"post",url:t,data:{dcwj:JSON.stringify(n)},success:function(t){return i(JSON.stringify(t))}})})}(n,t)}();'
+    js = 'async function(){var t=\'REPLACE\',n="https://fxgl.jx.edu.cn/4136010406/";return 0==(t=JSON.parse(' \
+         't)).sf?n+="dcwjEditNew/dcwjSubmit2":n+="dcwjEditNew/dcwjTsubmit2",await async function(t,n){return await ' \
+         'new Promise(i=>{$.ajax({type:"post",url:t,data:{dcwj:JSON.stringify(n)},success:function(t){return i(' \
+         'JSON.stringify(t))}})})}(n,t)}(); '
     js = js.replace("REPLACE", json.dumps(single.__getitem__('paper')))
     print(driver.execute_script('return ' + js))
     print()
