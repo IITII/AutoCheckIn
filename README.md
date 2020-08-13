@@ -1,15 +1,19 @@
 # AutoCheckIn
 > 防疫签到的一些处理方法(Python version)  
+> 因为无教师账号，教师签到暂且不做，目前学生签到无问题  
+
+## Preview
+![alt](./resources/img/preview.png)
 
 ## Run
-> 在 `exe` 同级目录下面创建一个 `config.json` 文件  
+> 在 `App.py` or `AutoCheckIn.exe` 同级目录下面创建一个 `config.json` 文件  
 > 可以添加多个用户消息，方便批量打卡ヾ(≧▽≦*)o  
 
 ```json5
 [
     {
         "loginName": "student id",
-        "yzxx": "name",
+        "yzxx": "student name",
         "loginType": 0,
         "checkIn":{}, //签到的数据
         "paper":{} // 问卷的数据
@@ -17,7 +21,7 @@
     },
     {
         "loginName": "student id",
-        "yzxx": "name",
+        "yzxx": "student name",
         "loginType": 0,
         "checkIn":{}, //签到的数据
         "paper":{} // 问卷的数据
@@ -41,6 +45,16 @@
 13. Run: `*.exe`
 15. 提交测试通过以后，可以选择 **添加定时任务**，并且执行后可以选择保留窗口，方便查错。
 
+### Example
+* 使用 `Ubuntu18.04` 定时任务进行打卡
 
-### 一些注意事项
-2. 目前只支持 `Chrome` ,暂时没有支持其他浏览器的计划
+1. `sudo apt-get update -y && sudo apt install python3 git -y`
+2. `git clone https://github.com/IITII/AutoCheckIn.git && cd AutoCheckIn`
+3. `pip install -r requirements.txt` or `pip install -r requirements.txt -i  -i https://pypi.tuna.tsinghua.edu.cn/simple`
+4. `python3 App.py` or `python3 App.py >> log.log`
+> 每日 9.30 自动打卡，日志写入 `./log.log`  
+5. 添加定时任务: <code>echo "30 9 * * * cd \$(pwd) && python3 ./App.py >> ./log.log 2>&1" /var/spool/cron/crontabs/\$(whoami)</code>
+6. 查看定时任务: `crontab -l`
+
+## 一些注意事项
+1. 目前只支持 `Chrome` ,暂时没有支持其他浏览器的计划

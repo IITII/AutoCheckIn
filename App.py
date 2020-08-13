@@ -56,7 +56,6 @@ def task(driver, single):
     time.sleep(1)
     log(single, '自动签到中...')
     js = 'async function(){let t=\'REPLACE\';return t=JSON.parse(t),await async function(t){return await new Promise(n=>{$.ajax({url:"https://fxgl.jx.edu.cn/4136010406/studentQd/saveStu",method:"post",data:t,success:function(t){return n(JSON.stringify(t))}})})}(t)}();'
-    # js.replace("\"","\\\"")
     js = js.replace("REPLACE", json.dumps(single.__getitem__('checkIn')))
     print(driver.execute_script('return ' + js))
     time.sleep(3)
@@ -64,6 +63,7 @@ def task(driver, single):
     js = 'async function(){var t=\'REPLACE\',n="https://fxgl.jx.edu.cn/4136010406/";return 0==(t=JSON.parse(t)).sf?n+="dcwjEditNew/dcwjSubmit2":n+="dcwjEditNew/dcwjTsubmit2",await async function(t,n){return await new Promise(i=>{$.ajax({type:"post",url:t,data:{dcwj:JSON.stringify(n)},success:function(t){return i(JSON.stringify(t))}})})}(n,t)}();'
     js = js.replace("REPLACE", json.dumps(single.__getitem__('paper')))
     print(driver.execute_script('return ' + js))
+    print()
 
 
 def main():
