@@ -83,10 +83,29 @@ def main():
         with open(json_filename, 'r', encoding='utf-8') as f:
             data = json.load(f)
             driver = get_driver()
+            success = 0
+            fail = []
+            index = -1
             for single in data:
-                task(driver, single)
-                time.sleep(1)
+                index += 1
+                try:
+                    task(driver, single)
+                    time.sleep(1)
+                    success += 1
+                except Exception as e:
+                    print(e)
+                    fail += [index]
+                    # Restart driver is too slow
+                    driver.refresh()
+                    driver = get_driver()
             driver.quit()
+            # Error info
+            if len(fail) == 0:
+                for i in fail:
+                    log(i, 'Error')
+            print('Total: ' + str(len(data))
+                  + '\nSuccess: ' + str(success)
+                  + '\nFail: ' + str(len(fail)) + '\n')
     except FileNotFoundError:
         print("File is not found: " + os.path.abspath(json_filename))
         print("Creating file...")
