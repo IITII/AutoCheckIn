@@ -48,7 +48,7 @@
 ### Example
 * 使用 `Ubuntu18.04` 定时任务进行打卡
 
-1. `sudo apt-get update -y && sudo apt install python3 git -y`
+1. `sudo apt-get update -y && sudo apt install chromedriver chromium python3 git -y`
 2. `git clone https://github.com/IITII/AutoCheckIn.git && cd AutoCheckIn`
 3. `pip install -r requirements.txt` or `pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple`
 4. `python3 App.py` or `python3 App.py >> log.log`
