@@ -48,9 +48,9 @@
 ### Example
 * 使用 `Ubuntu18.04` 定时任务进行打卡
 
-1. `sudo apt-get update -y && sudo apt install chromedriver chromium python3 git -y`
+1. `sudo apt-get update -y && sudo apt install chromium-browser chromium-chromedriver python3 git -y`
 2. `git clone https://github.com/IITII/AutoCheckIn.git && cd AutoCheckIn`
-3. `pip install -r requirements.txt` or `pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple`
+3. `pip3 install -r requirements.txt` or `pip3 install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple`
 4. `python3 App.py` or `python3 App.py >> log.log`
 > 每日 9.30 自动打卡，日志写入 `./log.log`  
 5. 添加定时任务: <code>echo "30 9 * * * cd \$(pwd) && python3 ./App.py >> ./log.log 2>&1" >> /var/spool/cron/crontabs/\$(whoami)</code>
