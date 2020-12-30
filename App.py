@@ -59,7 +59,8 @@ def task(driver, single):
     driver.get("https://fxgl.jx.edu.cn/4136010406/public/homeQd?loginName="
                + single.__getitem__('loginName')
                + "&loginType=" + str(single.__getitem__('loginType')))
-    time.sleep(1)
+    # 稍微等久一点，等待 js、css 加载
+    time.sleep(5)
     log(single, '自动签到中...')
     js = 'async function(){let t=\'REPLACE\';return t=JSON.parse(t),await async function(t){return await new Promise(' \
          'n=>{$.ajax({url:"https://fxgl.jx.edu.cn/4136010406/studentQd/saveStu",method:"post",data:t,' \
