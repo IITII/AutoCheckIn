@@ -27,7 +27,7 @@ def get_driver():
     op = webdriver.ChromeOptions()
     # 关掉浏览器左上角的通知提示
     op.add_argument("--disable-notifications")
-    # 关闭'chrome正受到自动测试软件的控制'提示
+    # 关闭 chrome 正受到自动测试软件的控制'提示
     op.add_argument("disable-infobars")
     op.add_argument("--start-maximized")
     # No gui
@@ -67,14 +67,14 @@ def task(driver, single):
          'success:function(t){return n(JSON.stringify(t))}})})}(t)}(); '
     js = js.replace("REPLACE", json.dumps(single.__getitem__('checkIn')))
     print(driver.execute_script('return ' + js))
-    time.sleep(3)
-    log(single, '自动填写问卷中...')
-    js = 'async function(){var t=\'REPLACE\',n="https://fxgl.jx.edu.cn/4136010406/";return 0==(t=JSON.parse(' \
-         't)).sf?n+="dcwjEditNew/dcwjSubmit2":n+="dcwjEditNew/dcwjTsubmit2",await async function(t,n){return await ' \
-         'new Promise(i=>{$.ajax({type:"post",url:t,data:{dcwj:JSON.stringify(n)},success:function(t){return i(' \
-         'JSON.stringify(t))}})})}(n,t)}(); '
-    js = js.replace("REPLACE", json.dumps(single.__getitem__('paper')))
-    print(driver.execute_script('return ' + js))
+    # time.sleep(3)
+    # log(single, '自动填写问卷中...')
+    # js = 'async function(){var t=\'REPLACE\',n="https://fxgl.jx.edu.cn/4136010406/";return 0==(t=JSON.parse(' \
+    #      't)).sf?n+="dcwjEditNew/dcwjSubmit2":n+="dcwjEditNew/dcwjTsubmit2",await async function(t,n){return await ' \
+    #      'new Promise(i=>{$.ajax({type:"post",url:t,data:{dcwj:JSON.stringify(n)},success:function(t){return i(' \
+    #      'JSON.stringify(t))}})})}(n,t)}(); '
+    # js = js.replace("REPLACE", json.dumps(single.__getitem__('paper')))
+    # print(driver.execute_script('return ' + js))
     print()
 
 

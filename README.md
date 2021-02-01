@@ -2,6 +2,8 @@
 > 防疫签到的一些处理方法(Python version)  
 > 因为无教师账号，教师签到暂且不做，目前学生签到无问题  
 
+* 时代变了，打个卡就行。就不用做问卷了
+
 ## Preview
 ![alt](./resources/img/preview.png)
 
