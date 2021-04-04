@@ -1,0 +1,21 @@
+{
+  "name": "auto_check_in",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node App.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "axios-cookiejar-support": "^1.0.1",
+    "csv-parser": "^3.0.0",
+    "lodash": "^4.17.21",
+    "simple-node-logger": "^18.12.24",
+    "tough-cookie": "^4.0.0"
+  }
+}
