@@ -15,6 +15,7 @@ const fs = require('fs'),
   config = require('./config')
 
 const BASE_URL = 'https://fxgl.jx.edu.cn',
+  FractionDigits = 6,
   // 学校代码,学号,省,市,区/县,具体地址,经度,纬度
   CSV_HEADERS = ['school', 'id', 'province', 'city', 'district', 'street', 'lng', 'lat'],
   USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36"
@@ -140,14 +141,14 @@ function getPostData(info) {
     'scity': city,
     'sdistrict': district,
     // 经度，至少精确到小数点后6位
-    'lng': lng,
+    'lng': parseFloat(lng),
     // 纬度，至少精确到小数点后6位
-    'lat': lat,
+    'lat': parseFloat(lat),
     // 是否为毕业生 0:是 1:否
     'sfby': 0
   }
-  data.lng += offset(config.bound)
-  data.lat += offset(config.bound)
+  data.lng = (data.lng + offset(config.bound, FractionDigits)).toFixed(FractionDigits)
+  data.lat = (data.lat + offset(config.bound, FractionDigits)).toFixed(FractionDigits)
   return data
 }
 
@@ -169,10 +170,14 @@ function getPostData(info) {
  * @param fractionDigits 保留小数位
  */
 function offset(bound, fractionDigits = 6) {
+  bound = parseInt(bound)
+  fractionDigits = parseInt(fractionDigits)
   const minOffset = 0.000100
   const positive = Math.random() > 0.5
   const offset = (minOffset * Math.random() * bound).toFixed(fractionDigits)
-  return positive ? offset : -offset
+  // Number.toFixed() return a string
+  // We need using '+' or '-' to convert string to number
+  return positive ? +offset : -offset
 }
 
 
@@ -190,14 +195,16 @@ async function main(info) {
       logger.info('登录成功')
       // CheckIn
       logger.info('自动打卡...')
+      logger.debug(getPostData(info))
       checkIn(school, info, client)
         .then(_ => {
+          logger.debug(JSON.stringify(_))
           switch (_.code) {
             case 1001 || '1001' :
-              logger.info('自动打卡成功')
+              logger.info('自动打卡成功!')
               break
             case 1002 || '1002' :
-              logger.info('自动打卡成功')
+              logger.info('已经打过卡咯~')
               break
             default:
               const detail = JSON.stringify(_)
