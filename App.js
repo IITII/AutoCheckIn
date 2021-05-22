@@ -37,7 +37,7 @@ axios.defaults.headers['User-Agent'] = USER_AGENT
 async function sleep(logger = SimpleLogger.getLogger(), random = 30) {
   return await new Promise(resolve => {
     const sleepMinutes = random * Math.random()
-    const sleepTime = (sleepMinutes * 60 * 1000).toFixed(0)
+    const sleepTime = Math.round(sleepMinutes * 60 * 1000)
     logger.info(`随机睡眠 ${sleepMinutes.toFixed(1)} 分钟...`)
     setTimeout(_ => {
       return resolve()
@@ -120,15 +120,15 @@ function getPostData(info) {
     'district': district,
     // 具体地址
     'street': street,
-    'xszt': 0,
+    'xszt': '0',
     // 健康状况 0:健康 1:异常
-    'jkzk': 0,
+    'jkzk': '0',
     // 异常原因
     'jkzkxq': '',
     // 是否隔离 0:隔离 1:未隔离
-    'sfgl': 1,
+    'sfgl': '1',
     'gldd': '',
-    'mqtw': 0,
+    'mqtw': '0',
     'mqtwxq': '',
     // 省市区
     'zddlwz': province + city + district,
@@ -145,10 +145,10 @@ function getPostData(info) {
     // 纬度，至少精确到小数点后6位
     'lat': parseFloat(lat),
     // 是否为毕业生 0:是 1:否
-    'sfby': 0
+    'sfby': '0'
   }
-  data.lng = (data.lng + offset(config.bound, FractionDigits)).toFixed(FractionDigits)
-  data.lat = (data.lat + offset(config.bound, FractionDigits)).toFixed(FractionDigits)
+  data.lng = +(data.lng + offset(config.bound, FractionDigits)).toFixed(FractionDigits)
+  data.lat = +(data.lat + offset(config.bound, FractionDigits)).toFixed(FractionDigits)
   return data
 }
 

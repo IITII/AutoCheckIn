@@ -4,7 +4,7 @@ example/
 .vs
 .vscode
 package-lock.json
-info.csv
+test.csv
 
 # Logs
 logs
